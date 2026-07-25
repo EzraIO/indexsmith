@@ -1,0 +1,6 @@
+indexsmith:
+  endpoint: ${ES_URL:http://localhost:9200}
+  api-key-id: ${ES_API_KEY_ID:}
+  api-key-secret: ${ES_API_KEY_SECRET:}
+  # Set true only when you want the sample runner to issue a search at startup.
+  run-example: ${ES_RUN_EXAMPLE:false}

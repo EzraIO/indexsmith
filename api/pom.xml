@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.outakeshi</groupId>
+        <artifactId>indexsmith-parent</artifactId>
+        <version>0.1.0</version>
+    </parent>
+
+    <artifactId>indexsmith-api</artifactId>
+    <name>IndexSmith API</name>
+    <description>Type-safe Java repository, query, write, and aggregation APIs for Elasticsearch.</description>
+    <properties>
+        <automatic.module.name>io.github.outakeshi.indexsmith.api</automatic.module.name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.outakeshi</groupId>
+            <artifactId>indexsmith-client-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>api-compatibility</id>
+            <properties>
+                <japicmp.package.include>io.github.outakeshi.indexsmith.api.*</japicmp.package.include>
+            </properties>
+            <build><plugins><plugin>
+                <groupId>com.github.siom79.japicmp</groupId>
+                <artifactId>japicmp-maven-plugin</artifactId>
+            </plugin></plugins></build>
+        </profile>
+    </profiles>
+</project>
