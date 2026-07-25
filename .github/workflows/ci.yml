@@ -91,7 +91,7 @@ jobs:
         run: ./mvnw --batch-mode --no-transfer-progress -f examples/spring-boot-2/pom.xml package
       - name: Compile generated-source consumer
         run: ./mvnw --batch-mode --no-transfer-progress -f examples/generated-consumer/pom.xml package
-      - uses: gradle/actions/setup-gradle@0b6dd653ba04f4f93bf581ec31e66cbd7dcb644d # v4
+      - uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4
         with:
           gradle-version: '7.6.4'
       - name: Resolve BOM and compile Gradle consumer
