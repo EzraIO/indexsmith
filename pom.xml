@@ -62,7 +62,7 @@
         <es.version>7.8.0</es.version>
         <antlr.version>4.9.3</antlr.version>
         <es8.client.version>8.17.4</es8.client.version>
-        <jackson.version>2.17.3</jackson.version>
+        <jackson.version>2.22</jackson.version>
         <jakarta.json.version>2.0.2</jakarta.json.version>
         <lombok.version>1.18.32</lombok.version>
         <slf4j.version>1.7.32</slf4j.version>
