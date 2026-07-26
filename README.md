@@ -8,6 +8,15 @@ metadata, selects an installed ES7 or ES8 adapter through Java SPI, and keeps
 repository APIs independent of client-library changes. It never downloads a
 client at runtime.
 
+## Release status
+
+> [!IMPORTANT]
+> IndexSmith is pre-release and has not been published to Maven Central.
+> The `0.1.0` coordinates below describe the planned first release and only
+> resolve after building this repository with `./mvnw clean install`. Use the
+> source quickstart for evaluation; do not add these coordinates to production
+> builds until a GitHub release and Maven Central link are published here.
+
 ## 60-second quickstart
 
 With Docker running, start a real Elasticsearch 8.17 node and the Java 8 demo:
@@ -26,7 +35,7 @@ The response shows the detected server version, selected `es8` adapter,
 generated JSON DSL, and mapped Java objects. See the
 [`quickstart` guide](examples/quickstart/README.md) for cleanup and port options.
 
-## Supported line
+## Planned 0.1 support line
 
 - ES7 adapter: Elasticsearch 7.11–7.17, using the stable REST protocol.
 - ES8 adapter: Elasticsearch 8.17+, using the official Java API Client.

@@ -7,6 +7,14 @@ Java 8 运行时读取 `GET /` 的 `version.number`，通过 Java SPI 在已安�
 ES7/ES8 适配器中动态选择，查询和仓储 API 不绑定具体客户端版本，也不会在
 运行时下载依赖。
 
+## 发布状态
+
+> [!IMPORTANT]
+> IndexSmith 目前处于预发布阶段，尚未发布到 Maven Central。下文的 `0.1.0`
+> 坐标是首个正式版本的计划坐标，只有在本地执行 `./mvnw clean install` 后才能解析。
+> 当前请通过源码 quickstart 进行体验；在本页补充 GitHub Release 和 Maven Central
+> 链接之前，不要在生产项目中依赖这些坐标。
+
 ## 60 秒快速体验
 
 本机启动 Docker 后，用一条命令运行 Elasticsearch 8.17 和 Java 8 Demo：
@@ -23,6 +31,8 @@ curl --noproxy "*" "http://127.0.0.1:18080/products?name=city%20bike"
 
 响应会展示探测到的 ES 版本、自动选择的 `es8` 适配器、生成的 JSON DSL 和映射后的
 Java 对象。停止方式及端口配置见 [`quickstart` 文档](examples/quickstart/README.md)。
+
+## 计划中的 0.1 支持范围
 
 ES7 适配器支持 7.11–7.17，ES8 适配器支持 8.17+。Maven 通过 BOM 统一版本：
 
