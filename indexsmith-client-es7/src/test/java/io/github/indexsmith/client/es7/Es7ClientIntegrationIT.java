@@ -1,12 +1,12 @@
 package io.github.indexsmith.client.es7;
 
 import io.github.indexsmith.client.ClientConfiguration;
-import io.github.indexsmith.client.ClientRequest;
-import io.github.indexsmith.client.ClientResponse;
+import io.github.indexsmith.client.request.ClientRequest;
+import io.github.indexsmith.client.response.ClientResponse;
 import io.github.indexsmith.client.IndexSmithClient;
 import io.github.indexsmith.client.IndexSmithClientFactory;
-import io.github.indexsmith.client.SearchRequest;
-import io.github.indexsmith.client.SearchResult;
+import io.github.indexsmith.client.request.SearchRequest;
+import io.github.indexsmith.client.response.SearchResult;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;

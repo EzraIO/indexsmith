@@ -1,5 +1,16 @@
 package io.github.indexsmith.client;
 
+import io.github.indexsmith.client.observation.RequestEvent;
+import io.github.indexsmith.client.observation.RequestListener;
+import io.github.indexsmith.client.policy.QueryPolicy;
+import io.github.indexsmith.client.policy.QueryPolicyViolationException;
+import io.github.indexsmith.client.request.ClientOperation;
+import io.github.indexsmith.client.request.ClientRequest;
+import io.github.indexsmith.client.request.ClientRequestException;
+import io.github.indexsmith.client.request.SearchRequest;
+import io.github.indexsmith.client.response.ClientResponse;
+import io.github.indexsmith.client.response.SearchResult;
+
 import java.io.IOException;
 import java.util.List;
 

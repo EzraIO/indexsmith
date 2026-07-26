@@ -12,12 +12,12 @@ import io.github.indexsmith.api.result.PageSearchResponse;
 import io.github.indexsmith.api.result.WriteOperation;
 import io.github.indexsmith.api.result.WriteResult;
 import io.github.indexsmith.client.ClientConfiguration;
-import io.github.indexsmith.client.ClientRequest;
-import io.github.indexsmith.client.ClientResponse;
+import io.github.indexsmith.client.request.ClientRequest;
+import io.github.indexsmith.client.response.ClientResponse;
 import io.github.indexsmith.client.IndexSmithClient;
 import io.github.indexsmith.client.IndexSmithClientFactory;
-import io.github.indexsmith.client.SearchRequest;
-import io.github.indexsmith.client.SearchResult;
+import io.github.indexsmith.client.request.SearchRequest;
+import io.github.indexsmith.client.response.SearchResult;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.Closeable;

@@ -1,16 +1,16 @@
 package io.github.indexsmith.client.es8;
 
 import io.github.indexsmith.client.ClientConfiguration;
-import io.github.indexsmith.client.ClientRequest;
-import io.github.indexsmith.client.ClientResponse;
+import io.github.indexsmith.client.request.ClientRequest;
+import io.github.indexsmith.client.response.ClientResponse;
 import io.github.indexsmith.client.IndexSmithClient;
 import io.github.indexsmith.client.IndexSmithClientFactory;
 import io.github.indexsmith.client.EsVersion;
-import io.github.indexsmith.client.ClientOperation;
-import io.github.indexsmith.client.QueryPolicyViolationException;
-import io.github.indexsmith.client.SearchRequest;
-import io.github.indexsmith.client.SearchResult;
-import io.github.indexsmith.client.RequestEvent;
+import io.github.indexsmith.client.request.ClientOperation;
+import io.github.indexsmith.client.policy.QueryPolicyViolationException;
+import io.github.indexsmith.client.request.SearchRequest;
+import io.github.indexsmith.client.response.SearchResult;
+import io.github.indexsmith.client.observation.RequestEvent;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.junit.After;

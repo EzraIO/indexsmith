@@ -1,10 +1,10 @@
 package io.github.indexsmith.api;
 
 import io.github.indexsmith.api.policy.RestrictedQueryPolicy;
-import io.github.indexsmith.client.ClientOperation;
-import io.github.indexsmith.client.ClientRequest;
-import io.github.indexsmith.client.QueryPolicyViolationException;
-import io.github.indexsmith.client.SearchRequest;
+import io.github.indexsmith.client.request.ClientOperation;
+import io.github.indexsmith.client.request.ClientRequest;
+import io.github.indexsmith.client.policy.QueryPolicyViolationException;
+import io.github.indexsmith.client.request.SearchRequest;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;

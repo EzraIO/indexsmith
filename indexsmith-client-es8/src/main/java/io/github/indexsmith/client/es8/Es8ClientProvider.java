@@ -1,7 +1,7 @@
 package io.github.indexsmith.client.es8;
 
 import io.github.indexsmith.client.ClientConfiguration;
-import io.github.indexsmith.client.ElasticsearchClientProvider;
+import io.github.indexsmith.client.spi.ElasticsearchClientProvider;
 import io.github.indexsmith.client.EsVersion;
 import io.github.indexsmith.client.IndexSmithClient;
 

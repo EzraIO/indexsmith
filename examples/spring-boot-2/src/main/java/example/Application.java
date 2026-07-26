@@ -6,7 +6,7 @@ import io.github.indexsmith.api.policy.RestrictedQueryPolicy;
 import io.github.indexsmith.client.ClientConfiguration;
 import io.github.indexsmith.client.IndexSmithClient;
 import io.github.indexsmith.client.IndexSmithClientFactory;
-import io.github.indexsmith.client.QueryPolicyViolationException;
+import io.github.indexsmith.client.policy.QueryPolicyViolationException;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;

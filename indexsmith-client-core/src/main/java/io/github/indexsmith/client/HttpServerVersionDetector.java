@@ -1,5 +1,8 @@
 package io.github.indexsmith.client;
 
+import io.github.indexsmith.client.spi.ServerVersionDetector;
+import io.github.indexsmith.client.transport.JdkHttpTransport;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

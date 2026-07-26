@@ -1,4 +1,8 @@
-package io.github.indexsmith.client;
+package io.github.indexsmith.client.transport;
+
+import io.github.indexsmith.client.ClientConfiguration;
+import io.github.indexsmith.client.request.ClientRequest;
+import io.github.indexsmith.client.response.ClientResponse;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -89,7 +93,7 @@ public final class JdkHttpTransport {
         }
     }
 
-    static void configureTls(HttpURLConnection connection, ClientConfiguration configuration) {
+    public static void configureTls(HttpURLConnection connection, ClientConfiguration configuration) {
         if (connection instanceof HttpsURLConnection && configuration.getSslContext() != null) {
             ((HttpsURLConnection) connection).setSSLSocketFactory(
                     configuration.getSslContext().getSocketFactory());

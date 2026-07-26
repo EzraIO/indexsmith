@@ -2,8 +2,8 @@ package io.github.indexsmith.generator.model;
 
 import com.github.javaparser.ast.expr.Name;
 import io.github.indexsmith.api.json.JsonUtil;
-import io.github.indexsmith.client.ClientRequest;
-import io.github.indexsmith.client.ClientResponse;
+import io.github.indexsmith.client.request.ClientRequest;
+import io.github.indexsmith.client.response.ClientResponse;
 import io.github.indexsmith.client.IndexSmithClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Getter;

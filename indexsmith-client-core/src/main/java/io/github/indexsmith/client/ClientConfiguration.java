@@ -1,5 +1,8 @@
 package io.github.indexsmith.client;
 
+import io.github.indexsmith.client.observation.RequestListener;
+import io.github.indexsmith.client.policy.QueryPolicy;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;

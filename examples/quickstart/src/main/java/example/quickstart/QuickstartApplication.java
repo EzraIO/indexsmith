@@ -5,7 +5,7 @@ import io.github.indexsmith.api.policy.RestrictedQueryPolicy;
 import io.github.indexsmith.client.ClientConfiguration;
 import io.github.indexsmith.client.IndexSmithClient;
 import io.github.indexsmith.client.IndexSmithClientFactory;
-import io.github.indexsmith.client.RequestEvent;
+import io.github.indexsmith.client.observation.RequestEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
