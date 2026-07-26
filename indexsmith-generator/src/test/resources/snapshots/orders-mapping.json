@@ -1,0 +1,18 @@
+{
+  "orders": {
+    "mappings": {
+      "properties": {
+        "status": { "type": "keyword" },
+        "description": { "type": "text" },
+        "createdAt": { "type": "date" },
+        "items": {
+          "type": "nested",
+          "properties": {
+            "skuId": { "type": "long" },
+            "quantity": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

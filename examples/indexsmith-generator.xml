@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generatorConfiguration>
+    <!-- Keep generated files inside the project; credentials come from the environment. -->
+    <sourceDir>target/generated-sources/indexsmith</sourceDir>
+    <writeMode>FAIL</writeMode>
+    <targetPackage>
+        <model>com.example.search.model</model>
+        <fieldEnum>com.example.search.field</fieldEnum>
+        <esQueryModel>com.example.search.request</esQueryModel>
+        <client>com.example.search.client</client>
+    </targetPackage>
+    <clusters>
+        <cluster>
+            <connection>
+                <hostPorts>${env.ELASTICSEARCH_HOSTS}</hostPorts>
+                <userName>${env.ELASTICSEARCH_USERNAME}</userName>
+                <passWord>${env.ELASTICSEARCH_PASSWORD}</passWord>
+                <!-- Use apiKeyId/apiKeySecret instead of userName/passWord when API Key auth is enabled. -->
+                <!-- <apiKeyId>${env.ELASTICSEARCH_API_KEY_ID}</apiKeyId> -->
+                <!-- <apiKeySecret>${env.ELASTICSEARCH_API_KEY_SECRET}</apiKeySecret> -->
+                <connectTimeOut>5000</connectTimeOut>
+                <socketTimeout>30000</socketTimeout>
+            </connection>
+            <indexes>
+                <index>
+                    <name>orders</name>
+                    <queryConditionFields>status,description,items.skuId</queryConditionFields>
+                </index>
+            </indexes>
+        </cluster>
+    </clusters>
+</generatorConfiguration>

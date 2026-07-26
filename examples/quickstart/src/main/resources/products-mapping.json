@@ -1,0 +1,10 @@
+{
+  "mappings": {
+    "properties": {
+      "name": { "type": "text" },
+      "category": { "type": "keyword" },
+      "price": { "type": "double" },
+      "inStock": { "type": "boolean" }
+    }
+  }
+}

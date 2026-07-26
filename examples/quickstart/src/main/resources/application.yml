@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: indexsmith-quickstart
+  jackson:
+    serialization:
+      indent-output: true
+
+indexsmith:
+  endpoint: ${INDEXSMITH_ENDPOINT:http://localhost:9200}
