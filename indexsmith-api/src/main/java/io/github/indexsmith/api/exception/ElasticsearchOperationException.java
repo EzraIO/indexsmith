@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.exception;
 
 import java.io.IOException;
 

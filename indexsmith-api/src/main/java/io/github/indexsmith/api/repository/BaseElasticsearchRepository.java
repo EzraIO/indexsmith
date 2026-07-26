@@ -1,5 +1,16 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.repository;
 
+import io.github.indexsmith.api.aggregation.AggregationBucket;
+import io.github.indexsmith.api.aggregation.AggregationResult;
+import io.github.indexsmith.api.aggregation.AggregationSpec;
+import io.github.indexsmith.api.aggregation.AggregationType;
+import io.github.indexsmith.api.exception.ElasticsearchOperationException;
+import io.github.indexsmith.api.json.JsonUtil;
+import io.github.indexsmith.api.result.BulkWriteResult;
+import io.github.indexsmith.api.result.ElasticsearchError;
+import io.github.indexsmith.api.result.PageSearchResponse;
+import io.github.indexsmith.api.result.WriteOperation;
+import io.github.indexsmith.api.result.WriteResult;
 import io.github.indexsmith.client.ClientConfiguration;
 import io.github.indexsmith.client.ClientRequest;
 import io.github.indexsmith.client.ClientResponse;

@@ -1,7 +1,7 @@
 package io.github.indexsmith.generator.model;
 
 import com.github.javaparser.ast.expr.Name;
-import io.github.indexsmith.api.JsonUtil;
+import io.github.indexsmith.api.json.JsonUtil;
 import io.github.indexsmith.client.ClientRequest;
 import io.github.indexsmith.client.ClientResponse;
 import io.github.indexsmith.client.IndexSmithClient;

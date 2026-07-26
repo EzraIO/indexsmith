@@ -1,5 +1,6 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.query;
 
+import io.github.indexsmith.api.aggregation.AggregationSpec;
 import lombok.Data;
 
 import java.util.ArrayList;

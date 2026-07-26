@@ -1,6 +1,6 @@
 package example.generated.field;
 
-import io.github.indexsmith.api.QueryField;
+import io.github.indexsmith.api.query.QueryField;
 
 /** Representative output from the field enum generator. */
 public enum OrdersFieldEnum implements QueryField {

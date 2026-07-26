@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.result;
 
 /** Result of one index or delete operation. */
 public final class WriteResult {

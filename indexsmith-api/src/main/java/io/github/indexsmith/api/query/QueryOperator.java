@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.query;
 
 /** Supported version-neutral Elasticsearch query operators. */
 public enum QueryOperator {

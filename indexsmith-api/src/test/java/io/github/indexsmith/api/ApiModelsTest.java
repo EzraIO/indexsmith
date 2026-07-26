@@ -1,5 +1,9 @@
 package io.github.indexsmith.api;
 
+import io.github.indexsmith.api.aggregation.*;
+import io.github.indexsmith.api.query.*;
+import io.github.indexsmith.api.repository.*;
+import io.github.indexsmith.api.result.*;
 import org.junit.Test;
 
 import java.util.Collections;

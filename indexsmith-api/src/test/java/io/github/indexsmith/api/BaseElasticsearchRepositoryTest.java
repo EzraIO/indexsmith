@@ -1,5 +1,9 @@
 package io.github.indexsmith.api;
 
+import io.github.indexsmith.api.aggregation.*;
+import io.github.indexsmith.api.exception.ElasticsearchOperationException;
+import io.github.indexsmith.api.repository.*;
+import io.github.indexsmith.api.result.*;
 import io.github.indexsmith.client.ClientRequest;
 import io.github.indexsmith.client.ClientResponse;
 import io.github.indexsmith.client.IndexSmithClient;

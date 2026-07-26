@@ -1,5 +1,7 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.result;
 
+import io.github.indexsmith.api.aggregation.AggregationResult;
+import io.github.indexsmith.api.repository.BaseHit;
 import lombok.Data;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,6 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.aggregation;
+
+import io.github.indexsmith.api.query.QueryField;
 
 import java.util.ArrayList;
 import java.util.Collections;

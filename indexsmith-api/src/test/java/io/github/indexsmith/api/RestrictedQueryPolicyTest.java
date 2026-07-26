@@ -1,5 +1,6 @@
 package io.github.indexsmith.api;
 
+import io.github.indexsmith.api.policy.RestrictedQueryPolicy;
 import io.github.indexsmith.client.ClientOperation;
 import io.github.indexsmith.client.ClientRequest;
 import io.github.indexsmith.client.QueryPolicyViolationException;

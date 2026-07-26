@@ -2,7 +2,7 @@ package io.github.indexsmith.generator.generate;
 
 
 import io.github.indexsmith.generator.builder.BlockCommentBuilder;
-import io.github.indexsmith.api.PageQuery;
+import io.github.indexsmith.api.query.PageQuery;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;

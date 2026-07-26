@@ -1,6 +1,7 @@
 package io.github.indexsmith.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import io.github.indexsmith.api.json.JsonUtil;
 import org.junit.Test;
 
 import java.util.Arrays;

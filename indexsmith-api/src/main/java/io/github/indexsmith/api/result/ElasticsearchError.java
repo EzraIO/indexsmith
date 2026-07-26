@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.result;
 
 /** Structured Elasticsearch error returned for an accepted HTTP request. */
 public final class ElasticsearchError {

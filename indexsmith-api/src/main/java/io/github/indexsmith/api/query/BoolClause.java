@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.query;
 
 /** Elasticsearch bool-query clause used by a {@link QueryCondition}. */
 public enum BoolClause {
