@@ -4,7 +4,7 @@ import example.generated.ProductClient;
 import example.generated.ProductReq;
 import io.github.indexsmith.api.policy.RestrictedQueryPolicy;
 import io.github.indexsmith.client.ClientConfiguration;
-import io.github.indexsmith.client.QueryPolicyViolationException;
+import io.github.indexsmith.client.policy.QueryPolicyViolationException;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;

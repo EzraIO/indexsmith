@@ -24,13 +24,13 @@ import io.github.indexsmith.api.query.RangeBounds;
 import io.github.indexsmith.api.query.SortDirection;
 import io.github.indexsmith.api.query.SortOption;
 import io.github.indexsmith.api.query.SourceFilter;
-import io.github.indexsmith.client.ClientRequest;
-import io.github.indexsmith.client.ClientResponse;
+import io.github.indexsmith.client.request.ClientRequest;
+import io.github.indexsmith.client.response.ClientResponse;
 import io.github.indexsmith.client.ClientConfiguration;
 import io.github.indexsmith.client.IndexSmithClient;
 import io.github.indexsmith.client.EsVersion;
-import io.github.indexsmith.client.SearchRequest;
-import io.github.indexsmith.client.SearchResult;
+import io.github.indexsmith.client.request.SearchRequest;
+import io.github.indexsmith.client.response.SearchResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.expr.Name;
@@ -294,8 +294,8 @@ public class SourceGeneratorTest {
                 .endpoint("http://localhost:" + server.getAddress().getPort())
                 .queryPolicy(operation -> {
                     if (operation.getType()
-                            == io.github.indexsmith.client.ClientOperation.Type.SEARCH) {
-                        throw new io.github.indexsmith.client.QueryPolicyViolationException("blocked");
+                            == io.github.indexsmith.client.request.ClientOperation.Type.SEARCH) {
+                        throw new io.github.indexsmith.client.policy.QueryPolicyViolationException("blocked");
                     }
                 })
                 .build();
@@ -311,7 +311,7 @@ public class SourceGeneratorTest {
                     throw new AssertionError("Expected generated query to be rejected");
                 } catch (java.lang.reflect.InvocationTargetException exception) {
                     assertTrue(exception.getCause() instanceof
-                            io.github.indexsmith.client.QueryPolicyViolationException);
+                            io.github.indexsmith.client.policy.QueryPolicyViolationException);
                 }
             } finally {
                 clientType.getMethod("close").invoke(generatedClient);

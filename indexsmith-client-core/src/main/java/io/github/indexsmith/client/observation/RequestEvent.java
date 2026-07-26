@@ -1,4 +1,6 @@
-package io.github.indexsmith.client;
+package io.github.indexsmith.client.observation;
+
+import io.github.indexsmith.client.request.ClientOperation;
 
 /** Redacted request lifecycle event. It never exposes credentials or payloads. */
 public final class RequestEvent {
@@ -14,8 +16,8 @@ public final class RequestEvent {
     private final int retryCount;
     private final String failureType;
 
-    RequestEvent(Phase phase, String adapterId, ClientOperation operation, int statusCode,
-                 long durationMillis, int retryCount, String failureType) {
+    public RequestEvent(Phase phase, String adapterId, ClientOperation operation, int statusCode,
+                        long durationMillis, int retryCount, String failureType) {
         this.phase = phase;
         this.adapterId = adapterId;
         this.operationType = operation.getType();

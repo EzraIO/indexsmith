@@ -96,6 +96,13 @@ The public API is grouped by responsibility under `io.github.indexsmith.api`:
 operation responses. Supporting contracts live in `policy`, `exception`, and
 `json`.
 
+The client API follows the same boundary: stable entry points such as
+`IndexSmithClient`, `IndexSmithClientFactory`, and `ClientConfiguration` remain
+under `io.github.indexsmith.client`; request and response models live in
+`request` and `response`, policies in `policy`, lifecycle hooks in
+`observation`, adapter extension points in `spi`, and reusable HTTP transport
+code in `transport`.
+
 `insert` creates a document when no ID is supplied. With an ID, it uses
 `PUT /{index}/_doc/{id}`, which creates or replaces the complete document.
 This is not a partial Elasticsearch `_update`; callers that need partial-update

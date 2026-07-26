@@ -1,5 +1,12 @@
 package io.github.indexsmith.client;
 
+import io.github.indexsmith.client.observation.*;
+import io.github.indexsmith.client.policy.*;
+import io.github.indexsmith.client.request.*;
+import io.github.indexsmith.client.response.*;
+import io.github.indexsmith.client.spi.*;
+import io.github.indexsmith.client.transport.*;
+
 import org.junit.Test;
 
 import java.io.IOException;

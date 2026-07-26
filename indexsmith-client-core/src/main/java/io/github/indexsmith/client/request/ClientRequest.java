@@ -1,4 +1,4 @@
-package io.github.indexsmith.client;
+package io.github.indexsmith.client.request;
 
 import java.util.Locale;
 

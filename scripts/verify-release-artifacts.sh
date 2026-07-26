@@ -84,7 +84,7 @@ if [[ -n "${API_BASELINE_VERSION:-}" ]]; then
   done
 fi
 
-provider_spi='META-INF/services/io.github.indexsmith.client.ElasticsearchClientProvider'
+provider_spi='META-INF/services/io.github.indexsmith.client.spi.ElasticsearchClientProvider'
 es7_entries="$(jar tf "${project_dir}/indexsmith-client-es7/target/indexsmith-client-es7-${version}.jar")"
 es8_entries="$(jar tf "${project_dir}/indexsmith-client-es8/target/indexsmith-client-es8-${version}.jar")"
 rg -q "^${provider_spi}$" <<< "$es7_entries"

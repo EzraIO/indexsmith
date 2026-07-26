@@ -2,9 +2,9 @@ package io.github.indexsmith.api.policy;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import io.github.indexsmith.api.json.JsonUtil;
-import io.github.indexsmith.client.ClientOperation;
-import io.github.indexsmith.client.QueryPolicy;
-import io.github.indexsmith.client.QueryPolicyViolationException;
+import io.github.indexsmith.client.request.ClientOperation;
+import io.github.indexsmith.client.policy.QueryPolicy;
+import io.github.indexsmith.client.policy.QueryPolicyViolationException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

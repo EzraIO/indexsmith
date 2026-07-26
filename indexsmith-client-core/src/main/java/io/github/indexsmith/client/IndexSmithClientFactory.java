@@ -1,5 +1,8 @@
 package io.github.indexsmith.client;
 
+import io.github.indexsmith.client.spi.ElasticsearchClientProvider;
+import io.github.indexsmith.client.spi.ServerVersionDetector;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

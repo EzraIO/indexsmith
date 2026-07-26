@@ -1,4 +1,4 @@
-package io.github.indexsmith.client;
+package io.github.indexsmith.client.response;
 
 public final class ClientResponse {
     private final int statusCode;
