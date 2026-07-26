@@ -1,7 +1,7 @@
 package example.quickstart;
 
 import example.quickstart.generated.ProductRepository;
-import io.github.indexsmith.api.RestrictedQueryPolicy;
+import io.github.indexsmith.api.policy.RestrictedQueryPolicy;
 import io.github.indexsmith.client.ClientConfiguration;
 import io.github.indexsmith.client.IndexSmithClient;
 import io.github.indexsmith.client.IndexSmithClientFactory;

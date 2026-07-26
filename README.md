@@ -69,6 +69,38 @@ implementation("io.github.indexsmith:indexsmith-api")
 implementation("io.github.indexsmith:indexsmith-client-es8")
 ```
 
+## Generated repositories and runtime clients
+
+For each configured Elasticsearch index, the generator creates a typed model,
+query request, field metadata, and repository. The generated repository extends
+`BaseElasticsearchRepository<T>` from `indexsmith-api`; it does not duplicate
+the common Elasticsearch operations. The base repository provides single and
+bulk indexing, deletion by ID, search execution, response mapping, and client
+lifecycle handling. Generated code supplies the index name and builds typed
+query JSON from the mapping-specific request model.
+
+At runtime, the repository delegates requests to the version-neutral
+`IndexSmithClient` contract from `indexsmith-client-core`. Client discovery then
+selects the installed ES7 or ES8 adapter through Java SPI:
+
+```text
+Generated repository
+    -> api.repository.BaseElasticsearchRepository<T>
+        -> IndexSmithClient (indexsmith-client-core)
+            -> ES7 or ES8 adapter
+```
+
+The public API is grouped by responsibility under `io.github.indexsmith.api`:
+`repository` contains repository and hit types, `query` contains the query DSL,
+`aggregation` contains aggregation requests and results, and `result` contains
+operation responses. Supporting contracts live in `policy`, `exception`, and
+`json`.
+
+`insert` creates a document when no ID is supplied. With an ID, it uses
+`PUT /{index}/_doc/{id}`, which creates or replaces the complete document.
+This is not a partial Elasticsearch `_update`; callers that need partial-update
+semantics should use an explicit client request.
+
 Basic Auth, API Key authentication, custom `SSLContext`, fail-closed query
 policies, redacted lifecycle listeners, and idempotency-aware failover are
 available through `ClientConfiguration`. Runnable Java 8, Spring Boot 2.7,

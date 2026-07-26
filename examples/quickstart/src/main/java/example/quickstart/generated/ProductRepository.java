@@ -1,9 +1,9 @@
 package example.quickstart.generated;
 
-import io.github.indexsmith.api.BaseElasticsearchRepository;
-import io.github.indexsmith.api.BaseHit;
-import io.github.indexsmith.api.PageSearchResponse;
-import io.github.indexsmith.api.SearchQueryBuilder;
+import io.github.indexsmith.api.repository.BaseElasticsearchRepository;
+import io.github.indexsmith.api.repository.BaseHit;
+import io.github.indexsmith.api.result.PageSearchResponse;
+import io.github.indexsmith.api.query.SearchQueryBuilder;
 import io.github.indexsmith.client.IndexSmithClient;
 
 import java.io.IOException;

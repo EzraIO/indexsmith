@@ -2,8 +2,8 @@ package example.quickstart;
 
 import example.quickstart.generated.Product;
 import example.quickstart.generated.ProductRepository;
-import io.github.indexsmith.api.BaseHit;
-import io.github.indexsmith.api.WriteResult;
+import io.github.indexsmith.api.repository.BaseHit;
+import io.github.indexsmith.api.result.WriteResult;
 import io.github.indexsmith.client.ClientRequest;
 import io.github.indexsmith.client.ClientResponse;
 import io.github.indexsmith.client.IndexSmithClient;

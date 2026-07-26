@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.aggregation;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;

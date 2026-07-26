@@ -1,6 +1,6 @@
 package example.quickstart.generated;
 
-import io.github.indexsmith.api.PageQuery;
+import io.github.indexsmith.api.query.PageQuery;
 
 /** Representative request object generated for configured query fields. */
 public final class ProductSearchRequest extends PageQuery {

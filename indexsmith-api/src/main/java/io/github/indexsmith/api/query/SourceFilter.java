@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.query;
 
 import java.util.ArrayList;
 import java.util.Collection;

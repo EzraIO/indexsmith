@@ -1,6 +1,9 @@
 package io.github.indexsmith.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.github.indexsmith.api.aggregation.*;
+import io.github.indexsmith.api.json.JsonUtil;
+import io.github.indexsmith.api.query.*;
 import org.junit.Test;
 
 import java.util.Arrays;

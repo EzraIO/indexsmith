@@ -1,6 +1,6 @@
 package io.github.indexsmith.generator.generate;
 
-import io.github.indexsmith.api.QueryField;
+import io.github.indexsmith.api.query.QueryField;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.EnumDeclaration;
 import io.github.indexsmith.generator.model.EsConfigContext;

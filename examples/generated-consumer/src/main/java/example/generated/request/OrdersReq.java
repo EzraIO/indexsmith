@@ -1,6 +1,6 @@
 package example.generated.request;
 
-import io.github.indexsmith.api.PageQuery;
+import io.github.indexsmith.api.query.PageQuery;
 
 /** Representative output from the query request generator. */
 public class OrdersReq extends PageQuery {

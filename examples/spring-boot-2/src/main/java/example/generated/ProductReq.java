@@ -1,6 +1,6 @@
 package example.generated;
 
-import io.github.indexsmith.api.PageQuery;
+import io.github.indexsmith.api.query.PageQuery;
 
 /** Representative generated request model. */
 public class ProductReq extends PageQuery {

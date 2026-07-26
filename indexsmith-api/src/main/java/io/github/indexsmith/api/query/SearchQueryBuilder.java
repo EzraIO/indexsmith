@@ -1,4 +1,9 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.query;
+
+import io.github.indexsmith.api.aggregation.AggregationSpec;
+import io.github.indexsmith.api.aggregation.AggregationRange;
+import io.github.indexsmith.api.aggregation.AggregationType;
+import io.github.indexsmith.api.json.JsonUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;

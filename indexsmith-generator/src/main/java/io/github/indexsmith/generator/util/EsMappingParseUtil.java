@@ -1,6 +1,6 @@
 package io.github.indexsmith.generator.util;
 
-import io.github.indexsmith.api.JsonUtil;
+import io.github.indexsmith.api.json.JsonUtil;
 import io.github.indexsmith.generator.model.EsField;
 import io.github.indexsmith.generator.model.EsFieldNode;
 import com.fasterxml.jackson.databind.JsonNode;

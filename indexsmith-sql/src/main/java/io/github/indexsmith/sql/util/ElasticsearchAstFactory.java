@@ -13,7 +13,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 @Deprecated
 public class ElasticsearchAstFactory {
 
-    public static ExpressionStmt buildBoolQueryBuilderStmt(String variableName){
+    public static ExpressionStmt buildBoolQueryBuilderStmt(String variableName) {
         return JavaAstBuilder.variableDeclaratorWithCallMethod(null, BoolQueryBuilder.class, variableName
                 , new MethodChainCallExpr(QueryBuilders.class.getSimpleName())
                         .callMethod("boolQuery")

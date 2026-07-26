@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.query;
 
 public enum SortDirection {
     ASC("asc"), DESC("desc");

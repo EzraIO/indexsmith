@@ -1,4 +1,4 @@
-package io.github.indexsmith.api;
+package io.github.indexsmith.api.aggregation;
 
 /** One keyed or unkeyed range used by a range aggregation. */
 public final class AggregationRange {
