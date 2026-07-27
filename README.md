@@ -1,12 +1,48 @@
 # IndexSmith for Elasticsearch
 
-> Type-safe Java repositories and code generation for Elasticsearch 7/8
+[![CI](https://github.com/EzraIO/indexsmith/actions/workflows/ci.yml/badge.svg)](https://github.com/EzraIO/indexsmith/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/EzraIO/indexsmith/actions/workflows/codeql.yml/badge.svg)](https://github.com/EzraIO/indexsmith/actions/workflows/codeql.yml)
+[![OpenSSF Scorecard](https://github.com/EzraIO/indexsmith/actions/workflows/scorecard.yml/badge.svg)](https://github.com/EzraIO/indexsmith/actions/workflows/scorecard.yml)
+[![License](https://img.shields.io/github/license/EzraIO/indexsmith)](LICENSE)
+
+> Generate type-safe Java repositories from Elasticsearch mappings and keep
+> application code independent of the Elasticsearch 7/8 client split.
 
 IndexSmith turns Elasticsearch mappings into typed Java models, query
 requests, and repositories. Its Java 8 runtime detects `GET /` server
 metadata, selects an installed ES7 or ES8 adapter through Java SPI, and keeps
 repository APIs independent of client-library changes. It never downloads a
 client at runtime.
+
+```text
+Elasticsearch mapping
+        │ generate
+        ▼
+Java model + typed query request + repository
+        │ one version-neutral API
+        ▼
+Elasticsearch 7.11–7.17 or Elasticsearch 8.17+
+```
+
+## Why IndexSmith?
+
+Elasticsearch 7 and 8 expose different Java client APIs, while mapping-driven
+applications repeatedly write the same model, query-building, CRUD, and
+response-mapping code. IndexSmith moves that repetition to build time.
+
+| Without IndexSmith | With IndexSmith |
+| --- | --- |
+| Hand-maintain models alongside mappings | Generate JavaBean models from mappings |
+| Repeat CRUD and response mapping per index | Inherit tested repository operations |
+| Couple application code to an ES client generation | Program against `IndexSmithClient` |
+| Rewrite query plumbing for ES7/ES8 migrations | Select a compatible adapter at startup |
+| Risk silently overwriting customized generated files | Fail closed on changed generated output |
+
+IndexSmith is designed for Java teams that own mapping-based repositories,
+still support Java 8, or need an incremental ES7-to-ES8 migration path. It is
+not an ORM, a replacement for Elasticsearch's full query DSL, or a runtime
+dependency downloader. Advanced operations remain available through explicit
+client requests.
 
 ## Release status
 
@@ -68,6 +104,17 @@ implementation(platform("io.github.indexsmith:indexsmith-bom:0.1.0"))
 implementation("io.github.indexsmith:indexsmith-api")
 implementation("io.github.indexsmith:indexsmith-client-es8")
 ```
+
+Choose only what the application needs:
+
+| Module | Purpose |
+| --- | --- |
+| `indexsmith-api` | Repository base classes, query DSL, results, and policies |
+| `indexsmith-client-core` | Version-neutral client contracts and adapter discovery |
+| `indexsmith-client-es7` | Elasticsearch 7.11–7.17 runtime adapter |
+| `indexsmith-client-es8` | Elasticsearch 8.17+ runtime adapter |
+| `indexsmith-maven-plugin` | Build-time mapping discovery and source generation |
+| `indexsmith-bom` | Aligned versions for supported public modules |
 
 ## Generated repositories and runtime clients
 
