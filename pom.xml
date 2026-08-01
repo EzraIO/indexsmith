@@ -65,7 +65,7 @@
         <jackson.version>2.17.3</jackson.version>
         <jakarta.json.version>2.0.2</jakarta.json.version>
         <lombok.version>1.18.32</lombok.version>
-        <slf4j.version>1.7.32</slf4j.version>
+        <slf4j.version>2.0.18</slf4j.version>
         <testcontainers.version>1.19.8</testcontainers.version>
         <junit.version>4.13.2</junit.version>
         <jacoco.version>0.8.12</jacoco.version>
