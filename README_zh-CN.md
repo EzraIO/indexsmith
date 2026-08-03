@@ -1,21 +1,60 @@
 # IndexSmith for Elasticsearch
 
-> 面向 Elasticsearch 7/8 的类型安全 Java 仓储与代码生成工具链
+[English](README.md) | [简体中文](README_zh-CN.md)
 
-IndexSmith 将 Elasticsearch mapping 生成为强类型 Java 模型、查询请求与仓储。
-Java 8 运行时读取 `GET /` 的 `version.number`，通过 Java SPI 在已安装的
-ES7/ES8 适配器中动态选择，查询和仓储 API 不绑定具体客户端版本，也不会在
-运行时下载依赖。
+> 从 Elasticsearch mapping 生成类型安全的 Java 仓储，同时让业务代码摆脱
+> Elasticsearch 7/8 Java 客户端差异。
 
-## 发布状态
+IndexSmith 消除 mapping 与 Java 业务代码之间重复、易错的胶水层：构建时生成
+Java 模型、搜索请求和仓储；运行时通过一套稳定 API 检测服务端版本，并利用
+Java SPI 选择已安装的 ES7 或 ES8 适配器。它不会在运行时下载客户端。
 
-> [!IMPORTANT]
-> IndexSmith 目前处于预发布阶段，尚未发布到 Maven Central。下文的 `0.1.0`
-> 坐标是首个正式版本的计划坐标，只有在本地执行 `./mvnw clean install` 后才能解析。
-> 当前请通过源码 quickstart 进行体验；在本页补充 GitHub Release 和 Maven Central
-> 链接之前，不要在生产项目中依赖这些坐标。
+```text
+Elasticsearch mapping
+        │ 生成
+        ▼
+Java 模型 + 类型安全查询请求 + 仓储
+        │ 一套与版本无关的 API
+        ▼
+Elasticsearch 7.11–7.17 或 Elasticsearch 8.17+
+```
 
-## 60 秒快速体验
+业务代码直接使用 mapping 字段，不再手写 JSON：
+
+```java
+ProductSearchRequest request = new ProductSearchRequest();
+request.setName("city bike");
+request.setCategory("bikes");
+
+PageSearchResponse<BaseHit<Product>> result = products.query(request);
+```
+
+对于每个配置的索引，生成器都会输出普通 Java 源码，不依赖运行时代理，也不要求
+业务项目使用 Lombok：
+
+| 生成类型 | 提供的能力 |
+| --- | --- |
+| Model | 从 mapping 派生的 JavaBean 字段 |
+| 字段枚举 | 用于查询组合的编译期字段名 |
+| 搜索请求 | 类型安全的过滤、分页、排序、高亮与聚合参数 |
+| Repository | 建立在公共 CRUD 与响应映射之上的索引专属查询 |
+| 客户端门面 | 与 ES 客户端版本无关的创建与生命周期管理 |
+
+## 为什么用 IndexSmith？
+
+| 不使用 IndexSmith | 使用 IndexSmith |
+| --- | --- |
+| 手工同步 mapping 与 Java 模型 | 从 mapping 生成 JavaBean |
+| 为每个索引重复 CRUD 和响应转换 | 复用经过测试的仓储操作 |
+| 业务代码绑定某一代 ES 客户端 | 面向稳定的 `IndexSmithClient` 编程 |
+| ES7 升级 ES8 时重写客户端代码 | 启动时自动选择兼容适配器 |
+| 生成代码被意外覆盖 | 输出变化时默认拒绝覆盖 |
+
+它适合维护 mapping 驱动仓储、仍需支持 Java 8，或正在逐步从 ES7 迁移到 ES8
+的团队。它不是 ORM，也不试图替代 Elasticsearch 完整 Query DSL；高级操作仍可
+通过显式客户端请求完成。
+
+## 一条命令快速体验
 
 本机启动 Docker 后，用一条命令运行 Elasticsearch 8.17 和 Java 8 Demo：
 
@@ -29,8 +68,37 @@ docker compose -f examples/quickstart/compose.yaml up --build
 curl --noproxy "*" "http://127.0.0.1:18080/products?name=city%20bike"
 ```
 
-响应会展示探测到的 ES 版本、自动选择的 `es8` 适配器、生成的 JSON DSL 和映射后的
-Java 对象。停止方式及端口配置见 [`quickstart` 文档](examples/quickstart/README.md)。
+精简后的响应如下，它把类型安全请求、最终 Elasticsearch 查询和映射结果联系在一起：
+
+```json
+{
+  "adapter": "es8",
+  "serverVersion": "8.17.3",
+  "generatedQuery": { "query": { "bool": { "must": [
+    { "match_phrase": { "name": "city bike" } }
+  ] } } },
+  "totalHits": 1,
+  "hits": [{ "id": "1", "data": { "name": "City Bike", "category": "bikes" } }]
+}
+```
+
+完整响应还包含完整的生成查询和商品字段。停止方式及端口配置见
+[`quickstart` 文档](examples/quickstart/README.md)。
+
+此 Demo 不要求本机安装 Java、Maven 或 Elasticsearch，Docker 会构建并运行全部服务。
+
+## 项目状态
+
+IndexSmith 目前处于预发布阶段，尚未发布到 Maven Central。上面的源码 quickstart
+已经可以直接体验。下文 `0.1.0` 坐标在本地执行 `./mvnw clean install` 后可用；正式用于
+生产环境前，请等待本页提供 GitHub Release 与 Maven Central 链接。
+
+| 已可通过源码验证 | 仍待 0.1.0 完成 |
+| --- | --- |
+| mapping 驱动的 Java 源码生成 | 发布到 Maven Central |
+| 生成代码编译测试与快照测试 | 建立稳定公共 API 兼容性基线 |
+| ES7 与 ES8 适配器集成测试 | 首个 GitHub Release 与升级承诺 |
+| Docker 端到端 quickstart | 生产采用指南 |
 
 ## 计划中的 0.1 支持范围
 
