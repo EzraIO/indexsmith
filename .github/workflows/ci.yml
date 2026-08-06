@@ -29,6 +29,11 @@ jobs:
         run: ./scripts/verify-public-source.sh
       - name: Verify reactor and coverage
         run: ./mvnw --batch-mode --no-transfer-progress clean verify
+      - name: Verify dependency declarations
+        if: ${{ matrix.java == '17' }}
+        run: >-
+          ./mvnw --batch-mode --no-transfer-progress dependency:analyze
+          -DfailOnWarning=true
 
   integration:
     needs: verify
@@ -133,3 +138,27 @@ jobs:
           docker compose -f "$compose_file" ps
           docker compose -f "$compose_file" logs --no-color
           exit 1
+
+  release-gate:
+    if: ${{ always() }}
+    needs:
+      - verify
+      - integration
+      - generated-repositories
+      - consumers
+      - quickstart
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every release-relevant CI job
+        env:
+          VERIFY_RESULT: ${{ needs.verify.result }}
+          INTEGRATION_RESULT: ${{ needs.integration.result }}
+          GENERATED_RESULT: ${{ needs.generated-repositories.result }}
+          CONSUMERS_RESULT: ${{ needs.consumers.result }}
+          QUICKSTART_RESULT: ${{ needs.quickstart.result }}
+        run: |
+          test "$VERIFY_RESULT" = success
+          test "$INTEGRATION_RESULT" = success
+          test "$GENERATED_RESULT" = success
+          test "$CONSUMERS_RESULT" = success
+          test "$QUICKSTART_RESULT" = success

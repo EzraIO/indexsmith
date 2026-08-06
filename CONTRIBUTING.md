@@ -2,8 +2,9 @@
 
 ## Before opening a change
 
-Read [AGENTS.md](AGENTS.md) and [TESTING.md](TESTING.md). Keep public
-coordinates and Java packages under `io.github.indexsmith`.
+Read [AGENTS.md](AGENTS.md) and [TESTING.md](TESTING.md). Keep Maven
+coordinates under `io.github.ezraio` and Java packages under
+`io.github.indexsmith`.
 Place production code and tests in the matching module; do not commit
 `target/`, generated Antlr output, IDE metadata, credentials, or local
 cluster data.

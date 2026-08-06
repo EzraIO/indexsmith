@@ -22,6 +22,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     environment: central-release
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -36,17 +37,55 @@ jobs:
           server-id: central
           server-username: CENTRAL_USERNAME
           server-password: CENTRAL_TOKEN
-      - name: Verify tag matches project version
-        shell: bash
-        env:
-          RELEASE_TAG: ${{ inputs.tag }}
-        run: |
-          version="$(./mvnw -q -DforceStdout help:evaluate -Dexpression=project.version)"
-          test "v${version}" = "$RELEASE_TAG"
       - name: Import release signing key
         env:
           MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-        run: printf '%s' "$MAVEN_GPG_PRIVATE_KEY" | gpg --batch --import
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+          MAVEN_GPG_KEY_FINGERPRINT: ${{ vars.MAVEN_GPG_KEY_FINGERPRINT }}
+        shell: bash
+        run: |
+          test -n "$MAVEN_GPG_PRIVATE_KEY"
+          test -n "$MAVEN_GPG_PASSPHRASE"
+          expected="${MAVEN_GPG_KEY_FINGERPRINT//[[:space:]]/}"
+          expected="${expected^^}"
+          test -n "$expected"
+          printf '%s' "$MAVEN_GPG_PRIVATE_KEY" | gpg --batch --import
+          secret_key_count="$(gpg --batch --with-colons --list-secret-keys \
+            | awk -F: '$1 == "sec" { count++ } END { print count + 0 }')"
+          test "$secret_key_count" = 1
+          actual="$(gpg --batch --with-colons --list-secret-keys \
+            | awk -F: '$1 == "fpr" { print toupper($10); exit }')"
+          test "$actual" = "$expected"
+          probe="${RUNNER_TEMP}/indexsmith-signing-probe"
+          printf '%s\n' 'IndexSmith release signing probe' > "$probe"
+          printf '%s' "$MAVEN_GPG_PASSPHRASE" \
+            | gpg --batch --yes --armor --detach-sign --pinentry-mode loopback \
+                --passphrase-fd 0 --local-user "$expected" \
+                --output "${probe}.asc" "$probe"
+          gpg --batch --verify "${probe}.asc" "$probe"
+      - name: Verify release tag and metadata
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          API_BASELINE_VERSION: ${{ inputs.baseline }}
+        run: |
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          test "$(git cat-file -t "$RELEASE_TAG")" = tag
+          test "$(git rev-parse "${RELEASE_TAG}^{commit}")" = "$(git rev-parse HEAD)"
+          git verify-tag "$RELEASE_TAG"
+          git merge-base --is-ancestor "${RELEASE_TAG}^{commit}" origin/main
+          version="$(./mvnw -q -DforceStdout help:evaluate -Dexpression=project.version)"
+          group_id="$(./mvnw -q -DforceStdout help:evaluate -Dexpression=project.groupId)"
+          scm_tag="$(./mvnw -q -DforceStdout help:evaluate -Dexpression=project.scm.tag)"
+          test "$group_id" = 'io.github.ezraio'
+          test "v${version}" = "$RELEASE_TAG"
+          test "$scm_tag" = "$RELEASE_TAG"
+          rg -q "^## ${version} - [0-9]{4}-[0-9]{2}-[0-9]{2}$" CHANGELOG.md
+          if [[ "$version" == '0.1.0' ]]; then
+            test -z "$API_BASELINE_VERSION"
+          else
+            test -n "$API_BASELINE_VERSION"
+          fi
       - name: Build, test, and sign first release artifacts
         if: ${{ inputs.baseline == '' }}
         env:
@@ -54,7 +93,6 @@ jobs:
         run: >-
           ./mvnw --batch-mode --no-transfer-progress clean verify
           -Prelease -Pintegration-tests
-          -Dgpg.passphrase="${MAVEN_GPG_PASSPHRASE}"
       - name: Build, test, sign, and compare release artifacts
         if: ${{ inputs.baseline != '' }}
         env:
@@ -64,11 +102,12 @@ jobs:
           ./mvnw --batch-mode --no-transfer-progress clean verify
           -Prelease -Pintegration-tests -Papi-compatibility
           -Dapi.baseline.version="${API_BASELINE_VERSION}"
-          -Dgpg.passphrase="${MAVEN_GPG_PASSPHRASE}"
       - name: Audit signed release artifacts before upload
         env:
           API_BASELINE_VERSION: ${{ inputs.baseline }}
         run: bash scripts/verify-release-artifacts.sh
+      - name: Record audited release artifact hashes
+        run: bash scripts/hash-release-artifacts.sh write
       - name: Upload validated Central bundle
         env:
           CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
@@ -77,10 +116,11 @@ jobs:
         run: >-
           ./mvnw --batch-mode --no-transfer-progress deploy
           -Prelease -DskipTests
-          -Dgpg.passphrase="${MAVEN_GPG_PASSPHRASE}"
-      - name: Re-audit deployed artifacts
+      - name: Re-audit local artifacts after Central upload
         env:
           API_BASELINE_VERSION: ${{ inputs.baseline }}
         run: bash scripts/verify-release-artifacts.sh
+      - name: Verify uploaded artifact inputs are unchanged
+        run: bash scripts/hash-release-artifacts.sh verify
       - name: Publish manually after Central validation
         run: echo 'Central publishing is intentionally manual; inspect validation before clicking Publish.'

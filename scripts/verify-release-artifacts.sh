@@ -8,6 +8,11 @@ if [[ "${1:-}" == "--allow-unsigned" ]]; then
 fi
 
 version="$(${project_dir}/mvnw -q -DforceStdout help:evaluate -Dexpression=project.version)"
+group_id="$(${project_dir}/mvnw -q -DforceStdout help:evaluate -Dexpression=project.groupId)"
+if [[ "$group_id" != "io.github.ezraio" ]]; then
+  echo "Unexpected release groupId: ${group_id}" >&2
+  exit 1
+fi
 stable_modules=(
   indexsmith-client-core
   indexsmith-client-es7
@@ -102,7 +107,7 @@ require_file "${sbom_base}.json"
 require_file "${sbom_base}.xml"
 require_signature "${sbom_base}.json"
 require_signature "${sbom_base}.xml"
-buildinfo="${project_dir}/target/indexsmith-parent-${version}.buildinfo"
+buildinfo="${project_dir}/indexsmith-maven-plugin/target/indexsmith-maven-plugin-${version}.buildinfo"
 require_file "$buildinfo"
 require_signature "$buildinfo"
 

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>indexsmith-parent</artifactId>
-        <groupId>io.github.indexsmith</groupId>
+        <groupId>io.github.ezraio</groupId>
         <version>0.1.0</version>
     </parent>
 
@@ -40,7 +40,7 @@
             <artifactId>elasticsearch</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.indexsmith</groupId>
+            <groupId>io.github.ezraio</groupId>
             <artifactId>indexsmith-utils</artifactId>
         </dependency>
         <dependency>
@@ -54,7 +54,7 @@
             <version>${antlr.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.github.indexsmith</groupId>
+            <groupId>io.github.ezraio</groupId>
             <artifactId>indexsmith-generator</artifactId>
         </dependency>
     </dependencies>

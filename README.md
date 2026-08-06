@@ -1,18 +1,20 @@
 # IndexSmith for Elasticsearch
 
+[English](README.md) | [简体中文](README_zh-CN.md)
+
 [![CI](https://github.com/EzraIO/indexsmith/actions/workflows/ci.yml/badge.svg)](https://github.com/EzraIO/indexsmith/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/EzraIO/indexsmith/actions/workflows/codeql.yml/badge.svg)](https://github.com/EzraIO/indexsmith/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://github.com/EzraIO/indexsmith/actions/workflows/scorecard.yml/badge.svg)](https://github.com/EzraIO/indexsmith/actions/workflows/scorecard.yml)
 [![License](https://img.shields.io/github/license/EzraIO/indexsmith)](LICENSE)
 
-> Generate type-safe Java repositories from Elasticsearch mappings and keep
-> application code independent of the Elasticsearch 7/8 client split.
+> Turn an Elasticsearch mapping into a type-safe Java repository—without
+> coupling application code to the Elasticsearch 7 or 8 Java client.
 
-IndexSmith turns Elasticsearch mappings into typed Java models, query
-requests, and repositories. Its Java 8 runtime detects `GET /` server
-metadata, selects an installed ES7 or ES8 adapter through Java SPI, and keeps
-repository APIs independent of client-library changes. It never downloads a
-client at runtime.
+IndexSmith removes the repetitive layer between an Elasticsearch mapping and
+Java application code. At build time it generates models, search requests, and
+repositories. At runtime one stable API detects the server version and selects
+the installed ES7 or ES8 adapter through Java SPI. It never downloads a client
+at runtime.
 
 ```text
 Elasticsearch mapping
@@ -23,6 +25,27 @@ Java model + typed query request + repository
         ▼
 Elasticsearch 7.11–7.17 or Elasticsearch 8.17+
 ```
+
+The application works with mapping fields instead of hand-written JSON:
+
+```java
+ProductSearchRequest request = new ProductSearchRequest();
+request.setName("city bike");
+request.setCategory("bikes");
+
+PageSearchResponse<BaseHit<Product>> result = products.query(request);
+```
+
+For every configured index, the generator emits ordinary Java source—no
+runtime proxies and no Lombok requirement:
+
+| Generated type | What it provides |
+| --- | --- |
+| Model | JavaBean fields derived from the mapping |
+| Field enum | Compile-time field names for query composition |
+| Search request | Typed filters, pagination, sorting, highlighting, and aggregations |
+| Repository | Index-specific queries on top of shared CRUD and response mapping |
+| Client facade | Version-neutral client construction and lifecycle |
 
 ## Why IndexSmith?
 
@@ -44,16 +67,7 @@ not an ORM, a replacement for Elasticsearch's full query DSL, or a runtime
 dependency downloader. Advanced operations remain available through explicit
 client requests.
 
-## Release status
-
-> [!IMPORTANT]
-> IndexSmith is pre-release and has not been published to Maven Central.
-> The `0.1.0` coordinates below describe the planned first release and only
-> resolve after building this repository with `./mvnw clean install`. Use the
-> source quickstart for evaluation; do not add these coordinates to production
-> builds until a GitHub release and Maven Central link are published here.
-
-## 60-second quickstart
+## One-command quickstart
 
 With Docker running, start a real Elasticsearch 8.17 node and the Java 8 demo:
 
@@ -67,9 +81,40 @@ Then query through the typed repository:
 curl --noproxy "*" "http://127.0.0.1:18080/products?name=city%20bike"
 ```
 
-The response shows the detected server version, selected `es8` adapter,
-generated JSON DSL, and mapped Java objects. See the
+An abbreviated response connects the typed request to the actual Elasticsearch
+query and mapped result:
+
+```json
+{
+  "adapter": "es8",
+  "serverVersion": "8.17.3",
+  "generatedQuery": { "query": { "bool": { "must": [
+    { "match_phrase": { "name": "city bike" } }
+  ] } } },
+  "totalHits": 1,
+  "hits": [{ "id": "1", "data": { "name": "City Bike", "category": "bikes" } }]
+}
+```
+
+The full response includes the complete generated query and product fields. See the
 [`quickstart` guide](examples/quickstart/README.md) for cleanup and port options.
+
+No local Java, Maven, or Elasticsearch installation is required for this demo;
+Docker builds and runs both services.
+
+## Project status
+
+IndexSmith is pre-release and not yet available from Maven Central. The source
+quickstart above is ready for evaluation. The `0.1.0` coordinates below become
+resolvable after `./mvnw clean install`; wait for a GitHub Release and Maven
+Central link here before adopting them in production.
+
+| Ready to evaluate from source | Still pending for 0.1.0 |
+| --- | --- |
+| Mapping-driven Java source generation | Maven Central publication |
+| Generated-source compilation and snapshot tests | Stable public-API compatibility baseline |
+| ES7 and ES8 adapter integration suites | First GitHub release and upgrade guarantees |
+| Dockerized end-to-end quickstart | Production adoption guidance |
 
 ## Planned 0.1 support line
 
@@ -83,7 +128,7 @@ Import the BOM, then install only the adapter your application supports:
 <dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>io.github.indexsmith</groupId>
+      <groupId>io.github.ezraio</groupId>
       <artifactId>indexsmith-bom</artifactId>
       <version>0.1.0</version>
       <type>pom</type>
@@ -92,7 +137,11 @@ Import the BOM, then install only the adapter your application supports:
   </dependencies>
 </dependencyManagement>
 <dependency>
-  <groupId>io.github.indexsmith</groupId>
+  <groupId>io.github.ezraio</groupId>
+  <artifactId>indexsmith-api</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.github.ezraio</groupId>
   <artifactId>indexsmith-client-es8</artifactId>
 </dependency>
 ```
@@ -100,9 +149,9 @@ Import the BOM, then install only the adapter your application supports:
 Gradle uses the same Maven coordinates:
 
 ```kotlin
-implementation(platform("io.github.indexsmith:indexsmith-bom:0.1.0"))
-implementation("io.github.indexsmith:indexsmith-api")
-implementation("io.github.indexsmith:indexsmith-client-es8")
+implementation(platform("io.github.ezraio:indexsmith-bom:0.1.0"))
+implementation("io.github.ezraio:indexsmith-api")
+implementation("io.github.ezraio:indexsmith-client-es8")
 ```
 
 Choose only what the application needs:
