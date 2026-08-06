@@ -91,7 +91,7 @@
         <javadoc.plugin.version>3.11.2</javadoc.plugin.version>
         <gpg.plugin.version>3.2.8</gpg.plugin.version>
         <enforcer.plugin.version>3.6.2</enforcer.plugin.version>
-        <dependency.plugin.version>3.8.1</dependency.plugin.version>
+        <dependency.plugin.version>3.11.0</dependency.plugin.version>
         <artifact.plugin.version>3.6.1</artifact.plugin.version>
         <plugin.plugin.version>3.13.1</plugin.plugin.version>
         <central.plugin.version>0.11.0</central.plugin.version>
