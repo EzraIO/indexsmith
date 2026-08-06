@@ -128,7 +128,7 @@ Import the BOM, then install only the adapter your application supports:
 <dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>io.github.indexsmith</groupId>
+      <groupId>io.github.ezraio</groupId>
       <artifactId>indexsmith-bom</artifactId>
       <version>0.1.0</version>
       <type>pom</type>
@@ -137,7 +137,11 @@ Import the BOM, then install only the adapter your application supports:
   </dependencies>
 </dependencyManagement>
 <dependency>
-  <groupId>io.github.indexsmith</groupId>
+  <groupId>io.github.ezraio</groupId>
+  <artifactId>indexsmith-api</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.github.ezraio</groupId>
   <artifactId>indexsmith-client-es8</artifactId>
 </dependency>
 ```
@@ -145,9 +149,9 @@ Import the BOM, then install only the adapter your application supports:
 Gradle uses the same Maven coordinates:
 
 ```kotlin
-implementation(platform("io.github.indexsmith:indexsmith-bom:0.1.0"))
-implementation("io.github.indexsmith:indexsmith-api")
-implementation("io.github.indexsmith:indexsmith-client-es8")
+implementation(platform("io.github.ezraio:indexsmith-bom:0.1.0"))
+implementation("io.github.ezraio:indexsmith-api")
+implementation("io.github.ezraio:indexsmith-client-es8")
 ```
 
 Choose only what the application needs:

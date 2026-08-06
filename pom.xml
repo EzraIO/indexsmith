@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         child.project.url.inherit.append.path="false"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.indexsmith</groupId>
+    <groupId>io.github.ezraio</groupId>
     <artifactId>indexsmith-parent</artifactId>
     <version>0.1.0</version>
     <packaging>pom</packaging>
@@ -29,11 +30,13 @@
             <url>https://github.com/EzraIO</url>
         </developer>
     </developers>
-    <scm>
+    <scm child.scm.connection.inherit.append.path="false"
+         child.scm.developerConnection.inherit.append.path="false"
+         child.scm.url.inherit.append.path="false">
         <connection>scm:git:https://github.com/EzraIO/indexsmith.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/EzraIO/indexsmith.git</developerConnection>
         <url>https://github.com/EzraIO/indexsmith</url>
-        <tag>HEAD</tag>
+        <tag>v0.1.0</tag>
     </scm>
     <issueManagement>
         <system>GitHub</system>
@@ -55,13 +58,17 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.build.outputTimestamp>2026-07-22T00:00:00Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2026-08-06T00:00:00Z</project.build.outputTimestamp>
         <maven.compiler.release>8</maven.compiler.release>
 
         <apache.commons.version>3.12.0</apache.commons.version>
         <es.version>7.8.0</es.version>
         <antlr.version>4.9.3</antlr.version>
         <es8.client.version>8.17.4</es8.client.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <httpcore.version>4.4.13</httpcore.version>
+        <httpasyncclient.version>4.1.5</httpasyncclient.version>
+        <commons.codec.version>1.15</commons.codec.version>
         <jackson.version>2.17.3</jackson.version>
         <jakarta.json.version>2.0.2</jakarta.json.version>
         <lombok.version>1.18.32</lombok.version>
@@ -170,6 +177,41 @@
                 <version>${jakarta.json.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${es8.client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>${httpcore.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpasyncclient</artifactId>
+                <version>${httpasyncclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore-nio</artifactId>
+                <version>${httpcore.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons.codec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
@@ -229,6 +271,17 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${dependency.plugin.version}</version>
+                    <configuration>
+                        <ignoredUnusedDeclaredDependencies>
+                            <!-- Annotation processors are not visible in analyzed bytecode. -->
+                            <ignoredUnusedDeclaredDependency>org.projectlombok:lombok</ignoredUnusedDeclaredDependency>
+                            <!-- JacksonJsonpMapper loads databind as its runtime JSON implementation. -->
+                            <ignoredUnusedDeclaredDependency>com.fasterxml.jackson.core:jackson-databind</ignoredUnusedDeclaredDependency>
+                            <!-- ES adapters are discovered through ServiceLoader in tests and the Maven plugin. -->
+                            <ignoredUnusedDeclaredDependency>io.github.ezraio:indexsmith-client-es7</ignoredUnusedDeclaredDependency>
+                            <ignoredUnusedDeclaredDependency>io.github.ezraio:indexsmith-client-es8</ignoredUnusedDeclaredDependency>
+                        </ignoredUnusedDeclaredDependencies>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -464,24 +517,11 @@
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-artifact-plugin</artifactId>
-                        <version>${artifact.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>attach-buildinfo</id>
-                                <goals>
-                                    <goal>buildinfo</goal>
-                                </goals>
-                                <configuration>
-                                    <reproducible>true</reproducible>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>${gpg.plugin.version}</version>
+                        <configuration>
+                            <bestPractices>true</bestPractices>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>sign-release-artifacts</id>
@@ -524,7 +564,10 @@
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>false</autoPublish>
                             <waitUntil>validated</waitUntil>
-                            <excludeArtifacts>indexsmith-utils,indexsmith-sql</excludeArtifacts>
+                            <excludeArtifacts>
+                                <excludeArtifact>indexsmith-utils</excludeArtifact>
+                                <excludeArtifact>indexsmith-sql</excludeArtifact>
+                            </excludeArtifacts>
                         </configuration>
                     </plugin>
                 </plugins>

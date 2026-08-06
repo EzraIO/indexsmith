@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 - Unreleased
+## 0.1.0 - 2026-08-06
 
 - Added version-aware ES7/ES8 adapters with server discovery and SPI loading.
 - Added Java 8-compatible repository/query APIs and mapping-based generation.
@@ -22,10 +22,11 @@
   buildinfo signatures before and after Central upload.
 - Marked `indexsmith-utils` and `indexsmith-sql` experimental; they are not included
   in the 0.1.x Central publication bundle.
-- The 0.1.0 coordinates and Java packages use the new
-  `io.github.indexsmith` namespace; existing consumers of
-  the pre-release `com.easy.elasticsearch` layout must update imports and
-  artifact coordinates.
+- The 0.1.0 Maven coordinates use the GitHub-account namespace
+  `io.github.ezraio`,
+  while Java packages remain under the project-oriented
+  `io.github.indexsmith` namespace. Existing consumers of the pre-release
+  `com.easy.elasticsearch` layout must update imports and artifact coordinates.
 
 Release notes will document compatibility changes, dependency changes, and
 generated-code changes for each subsequent version.

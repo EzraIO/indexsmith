@@ -18,7 +18,7 @@ dependencies at runtime.
 <dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>io.github.indexsmith</groupId>
+      <groupId>io.github.ezraio</groupId>
       <artifactId>indexsmith-bom</artifactId>
       <version>0.1.0</version>
       <type>pom</type>
@@ -27,7 +27,11 @@ dependencies at runtime.
   </dependencies>
 </dependencyManagement>
 <dependency>
-  <groupId>io.github.indexsmith</groupId>
+  <groupId>io.github.ezraio</groupId>
+  <artifactId>indexsmith-api</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.github.ezraio</groupId>
   <artifactId>indexsmith-client-es8</artifactId>
 </dependency>
 ```
@@ -43,8 +47,9 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("io.github.indexsmith:indexsmith-bom:0.1.0"))
-    implementation("io.github.indexsmith:indexsmith-client-es8")
+    implementation(platform("io.github.ezraio:indexsmith-bom:0.1.0"))
+    implementation("io.github.ezraio:indexsmith-api")
+    implementation("io.github.ezraio:indexsmith-client-es8")
 }
 ```
 
@@ -131,9 +136,9 @@ For a Gradle application consuming generated sources:
 
 ```kotlin
 dependencies {
-    implementation(platform("io.github.indexsmith:indexsmith-bom:0.1.0"))
-    implementation("io.github.indexsmith:indexsmith-api")
-    implementation("io.github.indexsmith:indexsmith-client-es8") // or indexsmith-client-es7
+    implementation(platform("io.github.ezraio:indexsmith-bom:0.1.0"))
+    implementation("io.github.ezraio:indexsmith-api")
+    implementation("io.github.ezraio:indexsmith-client-es8") // or indexsmith-client-es7
 }
 ```
 

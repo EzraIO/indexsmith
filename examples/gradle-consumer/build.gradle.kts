@@ -2,7 +2,7 @@ plugins {
     java
 }
 
-group = "io.github.indexsmith.examples"
+group = "io.github.ezraio.indexsmith.examples"
 version = "0.1.0"
 
 repositories {
@@ -11,9 +11,9 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("io.github.indexsmith:indexsmith-bom:0.1.0"))
-    implementation("io.github.indexsmith:indexsmith-api")
-    implementation("io.github.indexsmith:indexsmith-client-es8")
+    implementation(platform("io.github.ezraio:indexsmith-bom:0.1.0"))
+    implementation("io.github.ezraio:indexsmith-api")
+    implementation("io.github.ezraio:indexsmith-client-es8")
 }
 
 java {
