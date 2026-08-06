@@ -96,7 +96,7 @@
         <plugin.plugin.version>3.13.1</plugin.plugin.version>
         <central.plugin.version>0.11.0</central.plugin.version>
         <cyclonedx.plugin.version>2.9.1</cyclonedx.plugin.version>
-        <japicmp.plugin.version>0.23.1</japicmp.plugin.version>
+        <japicmp.plugin.version>0.26.1</japicmp.plugin.version>
     </properties>
 
     <dependencyManagement>
